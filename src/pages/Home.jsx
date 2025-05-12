@@ -1,11 +1,14 @@
-import Movies from "../components/Movies";
+import { Link } from "react-router-dom";
+import Movies from "./Movies";
 
 const Home = () => {
 
-    return <>
-        <h1>HOME</h1>
-        <Movies />
-    </>
+    return <div className="home">
+        <h1>ALL THE MOVIES</h1>
+        <h3>click the button below to see all the movies</h3>
+        <button><Link to="/movies">MOVIES</Link></button>
+    </div>
+
 }
 
 

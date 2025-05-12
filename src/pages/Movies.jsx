@@ -1,7 +1,7 @@
 import axios from "axios";
 const url = "http://localhost:3000/movies"
 import { useEffect, useState } from "react";
-import MovieCard from "./MovieCard";
+import MovieCard from "../components/MovieCard";
 
 const Movies = () => {
     const [movies, setMovies] = useState([]);
@@ -12,6 +12,7 @@ const Movies = () => {
             .then(response => {
                 setMovies(response.data)
             })
+            .catch(error => console.log(error));
     }
     useEffect(getBooks, []);
 

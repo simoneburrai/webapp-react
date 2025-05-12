@@ -1,8 +1,8 @@
 import { Outlet } from "react-router-dom"
-
+import Header from "../components/Header"
 const DefaultLayout = () => {
     return <>
-        <header><h1>React Web App</h1></header>
+        <Header />
         <main>
             <Outlet />
         </main>
