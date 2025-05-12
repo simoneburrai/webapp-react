@@ -1,20 +1,8 @@
-import axios from "axios";
-const url = "http://localhost:3000/movies"
-import { useEffect, useState } from "react";
 import MovieCard from "../components/MovieCard";
-
+import { useMovies } from "../contexts/MovieContext";
 const Movies = () => {
-    const [movies, setMovies] = useState([]);
 
-
-    const getBooks = () => {
-        axios.get(url)
-            .then(response => {
-                setMovies(response.data)
-            })
-            .catch(error => console.log(error));
-    }
-    useEffect(getBooks, []);
+    const movies = useMovies();
 
     return <div className="movies-container">
         {movies.map(movie => {
