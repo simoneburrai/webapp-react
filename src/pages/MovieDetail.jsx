@@ -1,14 +1,24 @@
 import { useParams } from "react-router-dom";
 import { useMovies } from "../contexts/MovieContext"
+import { useEffect, useState } from "react";
+import axios from "axios";
+
 
 const MovieDetail = () => {
+    const [movie, setMovie] = useState(null);
+    const { url } = useMovies();
+    const { id } = useParams();
+    const movieUrl = `${url}${id}`;
 
-    const movies = useMovies();
-    console.log(movies)
-    let { id } = useParams();
-    id = parseInt(id);
-    const movie = movies.find(movie => movie.id === id);
-    return <div className="movie-detail">
+    useEffect(() => {
+        axios.get(movieUrl)
+            .then(response => setMovie(response.data.movie))
+            .catch(error => console.log(error))
+    }, [])
+
+    console.log(movie)
+
+    return movie && <div className="movie-detail">
         <div className="image-container">
             <img src={movie.image} alt={movie.title} />
             <div className="info-movie">
@@ -21,5 +31,6 @@ const MovieDetail = () => {
         </div>
     </div>
 }
+
 
 export default MovieDetail;

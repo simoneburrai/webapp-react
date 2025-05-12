@@ -126,6 +126,19 @@ main .home button {
     text-decoration: none;
 }
 
+/* Movie detail Page  */
+.movie-detail {
+    text-align: center;
+}
+
+.movie-detail .image-container {
+    width: 400px;
+    height: 400px;
+}
+
+
+
+
 /* Footer  */
 footer {
     background-color: #334c57;

@@ -2,7 +2,7 @@ import MovieCard from "../components/MovieCard";
 import { useMovies } from "../contexts/MovieContext";
 const Movies = () => {
 
-    const movies = useMovies();
+    const { movies } = useMovies();
 
     return <div className="movies-container">
         {movies.map(movie => {
