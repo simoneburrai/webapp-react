@@ -3,19 +3,18 @@ import { useMovies } from "../contexts/MovieContext"
 import { useEffect, useState } from "react";
 import axios from "axios";
 import StarRating from "../components/StarRating";
+import ReviewCard from "../components/ReviewCard";
 
 
 const MovieDetail = () => {
-    const [review, setReview] = useState("");
+
     const [movie, setMovie] = useState(null);
     const [reviews, setReviews] = useState(null);
     const { url } = useMovies();
     const { id } = useParams();
     const movieUrl = `${url}${id}`;
 
-    const sendReview = (e) => {
-        e.preventDefault();
-    }
+
 
     useEffect(() => {
         axios.get(movieUrl)
@@ -43,25 +42,7 @@ const MovieDetail = () => {
                 <StarRating vote={Math.round(movie.average_vote)} />
             </div>
         </div>}
-        {reviews && <div className="movie-reviews">
-            <div className="reviews-container">
-                {reviews.map(review => {
-                    return <div key={review.id} className="review">
-                        <h4>{review.name}</h4>
-                        <StarRating vote={review.vote} />
-                        <p>{review.text}</p>
-                    </div>
-                })}
-            </div>
-            <form className="reviews-form" onSubmit={sendReview}>
-                <input type="text"
-                    placeholder="Inserisci la tua recensione qui"
-                    value={review}
-                    onChange={() => setReview(e => e.target.value)} />
-                <button>SEND</button>
-            </form>
-        </div>
-        }
+        {reviews && <ReviewCard reviews={reviews} />}
     </div>
 }
 

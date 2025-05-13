@@ -181,7 +181,7 @@ main .home button {
     overflow-x: hidden;
     justify-content: space-between;
     gap: 20px;
-    background-color: #f8f8ff;
+    background-color: #dfe4e1;
 }
 
 .movie-reviews .review {
