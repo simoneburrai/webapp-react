@@ -72,6 +72,28 @@ main .home button {
     border-radius: 20px;
 }
 
+.movies-form {
+    width: 100%;
+    display: flex;
+    padding: 20px;
+    justify-content: center;
+    gap: 20px;
+}
+
+.movies-form button {
+    padding: 10px;
+    background-color: #334c57;
+    color: white;
+    text-transform: uppercase;
+    border-radius: 15px;
+}
+
+.movies-form input {
+    padding: 10px;
+    text-transform: uppercase;
+    border-radius: 15px;
+}
+
 .movies-container {
     display: flex;
     flex-wrap: wrap;

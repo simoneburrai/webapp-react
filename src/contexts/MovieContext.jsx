@@ -31,7 +31,7 @@ const MovieProvider = ({ children }) => {
     useEffect(getMovies, [])
     console.log(movies);
 
-    return <MovieContext.Provider value={{ movies, url }}>
+    return <MovieContext.Provider value={{ movies, url, getMovies }}>
         {load && <div>Caricamento in Corso</div>}
         {errorMessage && <div className="error-alert">{errorMessage}</div>}
         {movies && children}

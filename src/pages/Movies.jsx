@@ -1,13 +1,44 @@
+import { useEffect, useState } from "react";
 import MovieCard from "../components/MovieCard";
 import { useMovies } from "../contexts/MovieContext";
+import axios from "axios";
+
 const Movies = () => {
+    const [search, setSearch] = useState("");
+    const { url, movies } = useMovies();
+    console.log(movies);
+    const searchUrl = `${url}?search=`
+    const [updatedMovies, setUpdatedMovies] = useState([]);
 
-    const { movies } = useMovies();
+    const onSearch = (e) => {
+        setSearch(e.target.value);
+    }
 
-    return <div className="movies-container">
-        {movies.map(movie => {
-            return <MovieCard key={movie.id} movie={movie} />
-        })}
-    </div>
+    const onSendForm = (e) => {
+        e.preventDefault();
+        if (search) {
+            axios.get(`${searchUrl}${search}`)
+                .then(response => setUpdatedMovies(response.data))
+                .catch(error => console.log(error));
+        } else {
+            setUpdatedMovies(movies);
+        }
+    }
+
+    useEffect(() => setUpdatedMovies(movies), [movies])
+
+    return <>
+        <form className="movies-form" onSubmit={onSendForm}>
+            <input type="text" placeholder="search" value={search} onChange={onSearch} />
+            <button type="submit">search</button>
+        </form>
+        <div className="movies-container">
+            {updatedMovies && updatedMovies.map(movie => {
+                return <MovieCard key={movie.id} movie={movie} />
+            })}
+        </div>
+    </>
+
+
 }
 export default Movies;
