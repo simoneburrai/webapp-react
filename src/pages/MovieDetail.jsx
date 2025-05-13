@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useMovies } from "../contexts/MovieContext"
 import { useEffect, useState } from "react";
 import axios from "axios";
+import StarRating from "../components/StarRating";
 
 
 const MovieDetail = () => {
@@ -34,7 +35,7 @@ const MovieDetail = () => {
                 <h4>{movie.director}</h4>
                 <p>{movie.abstract}</p>
                 <div>{movie.release_year}</div>
-                <div>REVIEWS VOTE: {Math.round(movie.average_vote)}</div>
+                <div>REVIEWS VOTE: <StarRating vote={Math.round(movie.average_vote)} /></div>
             </div>
         </div>}
         {reviews && <div className="movie-reviews">
@@ -42,7 +43,7 @@ const MovieDetail = () => {
                 {reviews.map(review => {
                     return <div key={review.id} className="review">
                         <h4>{review.name}</h4>
-                        <h5>VOTE: {review.vote}</h5>
+                        <h5>VOTE:  <StarRating vote={review.vote} /></h5>
                         <p>{review.text}</p>
                     </div>
                 })}
