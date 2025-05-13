@@ -6,11 +6,16 @@ import StarRating from "../components/StarRating";
 
 
 const MovieDetail = () => {
+    const [review, setReview] = useState("");
     const [movie, setMovie] = useState(null);
     const [reviews, setReviews] = useState(null);
     const { url } = useMovies();
     const { id } = useParams();
     const movieUrl = `${url}${id}`;
+
+    const sendReview = (e) => {
+        e.preventDefault();
+    }
 
     useEffect(() => {
         axios.get(movieUrl)
@@ -35,7 +40,7 @@ const MovieDetail = () => {
                 <h4>{movie.director}</h4>
                 <p>{movie.abstract}</p>
                 <div>{movie.release_year}</div>
-                <div>REVIEWS VOTE: <StarRating vote={Math.round(movie.average_vote)} /></div>
+                <StarRating vote={Math.round(movie.average_vote)} />
             </div>
         </div>}
         {reviews && <div className="movie-reviews">
@@ -43,13 +48,16 @@ const MovieDetail = () => {
                 {reviews.map(review => {
                     return <div key={review.id} className="review">
                         <h4>{review.name}</h4>
-                        <h5>VOTE:  <StarRating vote={review.vote} /></h5>
+                        <StarRating vote={review.vote} />
                         <p>{review.text}</p>
                     </div>
                 })}
             </div>
-            <form className="reviews-form">
-                <input type="text" placeholder="Inserisci la tua recensione qui" />
+            <form className="reviews-form" onSubmit={sendReview}>
+                <input type="text"
+                    placeholder="Inserisci la tua recensione qui"
+                    value={review}
+                    onChange={() => setReview(e => e.target.value)} />
                 <button>SEND</button>
             </form>
         </div>
