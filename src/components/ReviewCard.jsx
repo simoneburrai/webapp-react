@@ -1,11 +1,31 @@
 import StarRating from "./StarRating";
 import { useState } from "react";
+import { useMovies } from "../contexts/MovieContext";
 
 const ReviewCard = ({ reviews }) => {
-    const [review, setReview] = useState("");
-    const sendReview = (e) => {
-        e.preventDefault();
+    const { url } = useMovies();
+
+    const [formData, setFormData] = useState({
+        "name": "",
+        "vote": undefined,
+        "text": ""
+    })
+
+    const setFormValues = (e) => {
+        setFormData(prev => {
+            return {
+                ...prev,
+                [e.target.name]: e.target.value
+            }
+        })
+        console.log(formData);
     }
+
+    // const sendReview = (e) => {
+    //     axios.post(url)
+    //         .then()
+    //     e.preventDefault();
+    // }
 
 
     return <div className="movie-reviews">
@@ -18,11 +38,21 @@ const ReviewCard = ({ reviews }) => {
                 </div>
             })}
         </div>
-        <form className="reviews-form" onSubmit={sendReview}>
+        <form className="reviews-form">
+            <input type="text"
+                name="review-name"
+                value={formData.name}
+                onChange={setFormValues} />
             <input type="text"
                 placeholder="Inserisci la tua recensione qui"
-                value={review}
-                onChange={() => setReview(e => e.target.value)} />
+                value={formData.text}
+                name="review-text"
+                onChange={setFormValues} />
+            <input
+                type="number"
+                name="review-vote"
+                value={formData.vote}
+                onChange={setFormValues} />
             <button>SEND</button>
         </form>
     </div>
