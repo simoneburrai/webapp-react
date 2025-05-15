@@ -42,7 +42,7 @@ const MovieDetail = () => {
                 <StarRating vote={Math.round(movie.average_vote)} />
             </div>
         </div>}
-        {reviews && <ReviewCard reviews={reviews} />}
+        {reviews && <ReviewCard reviews={reviews} id={id} />}
     </div>
 }
 
