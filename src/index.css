@@ -201,10 +201,15 @@ main .home button {
 }
 
 .movie-reviews input {
+    font-size: 20px;
     width: 100%;
     border: 0px;
-    padding: 30px;
+    padding: 10px;
 }
+.movie-reviews input#text {
+    padding: 30px 10px;
+    font-size: 15px;
+} 
 
 .movie-reviews button {
     background-color: aqua;
@@ -216,6 +221,11 @@ main .home button {
 .movie-reviews button:hover {
     transform: scale(1.1);
     filter: brightness(0.8);
+}
+
+/* Form  */
+.reviews-form .inputs {
+    width: 100%;
 }
 
 /* Footer  */

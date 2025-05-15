@@ -4,10 +4,10 @@ import { useMovies } from "../contexts/MovieContext";
 import axios from "axios";
 
 const ReviewCard = ({props}) => {
-    const { reviews, id, setMovie, setReviews, movieUrl } = props;
+    const { reviews, id, getMovie } = props;
     const defaultFormData = {
         "name": "",
-        "vote": 1,
+        "vote": null,
         "text": ""
     }
     const { url } = useMovies();
@@ -29,12 +29,10 @@ const ReviewCard = ({props}) => {
             .then(response => console.log(response))
             .catch(error=> console.log(error))
 
-    axios.get(movieUrl)
-            .then(response => {
-                setMovie(response.data.movie)
-                setReviews(response.data.reviews)
-            })
-            .catch(error => console.log(error))
+        getMovie();
+        setFormData(defaultFormData);
+    
+
     }
 
 
@@ -49,20 +47,32 @@ const ReviewCard = ({props}) => {
             })}
         </div>
         <form className="reviews-form" onSubmit={sendReview}>
-            <input type="text"
+            <div className="inputs">
+              <input id="name"
+            type="text"
                 name="name"
                 value={formData.name}
-                onChange={setFormValues} />
-            <input type="text"
-                placeholder="Inserisci la tua recensione qui"
-                value={formData.text}
-                name="text"
-                onChange={setFormValues} />
-            <input
+                onChange={setFormValues} 
+                placeholder="Inserisci il tuo nome"
+                required/>
+                <input id="vote"
                 type="number"
                 name="vote"
                 value={formData.vote}
-                onChange={setFormValues} />
+                onChange={setFormValues}
+                placeholder="Inserisci il tuo voto (da 1 a 5)" 
+                required
+                min="1" 
+                max="5"/>
+            <input id="text"
+            type="text"
+                placeholder="Inserisci la tua recensione qui"
+                value={formData.text}
+                name="text"
+                onChange={setFormValues} 
+                required/>
+            
+            </div>
             <button>SEND</button>
         </form>
     </div>

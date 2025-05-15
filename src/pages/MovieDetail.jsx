@@ -14,17 +14,17 @@ const MovieDetail = () => {
     const { id } = useParams();
     const movieUrl = `${url}${id}`;
 
-
-
-    useEffect(() => {
+    function getMovie() {
         axios.get(movieUrl)
             .then(response => {
-                setMovie(response.data.movie)
-                setReviews(response.data.reviews)
+                setMovie(response.data.movie);
+                setReviews(response.data.reviews);
 
             })
-            .catch(error => console.log(error))
-    }, [])
+            .catch(error => console.log(error));
+    }
+
+    useEffect(getMovie, [])
 
 
     return <div className="movie-page">
@@ -41,7 +41,7 @@ const MovieDetail = () => {
                 <StarRating vote={Math.round(movie.average_vote)} />
             </div>
         </div>}
-        {reviews && <ReviewCard props={{setMovie, setReviews, id, reviews, movieUrl }}/>}
+        {reviews && <ReviewCard props={{getMovie, id, reviews }}/>}
     </div>
 }
 
