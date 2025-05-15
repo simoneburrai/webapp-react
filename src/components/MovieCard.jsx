@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 
 const MovieCard = ({ movie }) => {
     const moviePath = `/movies/${movie.id}`
-    console.log(movie.image)
+
     return <div className="movie-card">
 
         <div className="image-container">

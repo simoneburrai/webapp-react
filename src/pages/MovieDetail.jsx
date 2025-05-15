@@ -21,12 +21,11 @@ const MovieDetail = () => {
             .then(response => {
                 setMovie(response.data.movie)
                 setReviews(response.data.reviews)
-                console.log(response.data)
+
             })
             .catch(error => console.log(error))
     }, [])
 
-    console.log()
 
     return <div className="movie-page">
         {movie && <div className="movie-detail">
@@ -42,7 +41,7 @@ const MovieDetail = () => {
                 <StarRating vote={Math.round(movie.average_vote)} />
             </div>
         </div>}
-        {reviews && <ReviewCard reviews={reviews} id={id} />}
+        {reviews && <ReviewCard props={{setMovie, setReviews, id, reviews, movieUrl }}/>}
     </div>
 }
 

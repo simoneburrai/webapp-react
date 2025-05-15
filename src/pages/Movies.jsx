@@ -6,7 +6,6 @@ import axios from "axios";
 const Movies = () => {
     const [search, setSearch] = useState("");
     const { url, movies } = useMovies();
-    console.log(movies);
     const searchUrl = `${url}?search=`
     const [updatedMovies, setUpdatedMovies] = useState([]);
 

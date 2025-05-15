@@ -3,14 +3,16 @@ import { useState } from "react";
 import { useMovies } from "../contexts/MovieContext";
 import axios from "axios";
 
-const ReviewCard = ({ reviews, id }) => {
-    const { url } = useMovies();
-
-    const [formData, setFormData] = useState({
+const ReviewCard = ({props}) => {
+    const { reviews, id, setMovie, setReviews, movieUrl } = props;
+    const defaultFormData = {
         "name": "",
         "vote": 1,
         "text": ""
-    })
+    }
+    const { url } = useMovies();
+
+    const [formData, setFormData] = useState(defaultFormData)
 
     const setFormValues = (e) => {
         setFormData(prev => {
@@ -19,7 +21,6 @@ const ReviewCard = ({ reviews, id }) => {
                 [e.target.name]: e.target.value
             }
         })
-        console.log(formData);
     }
 
     const sendReview = (e) => {
@@ -27,7 +28,13 @@ const ReviewCard = ({ reviews, id }) => {
         axios.post(`${url}${id}/reviews`, formData)
             .then(response => console.log(response))
             .catch(error=> console.log(error))
-       
+
+    axios.get(movieUrl)
+            .then(response => {
+                setMovie(response.data.movie)
+                setReviews(response.data.reviews)
+            })
+            .catch(error => console.log(error))
     }
 
 
