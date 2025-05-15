@@ -4,10 +4,11 @@ import { useMovies } from "../contexts/MovieContext";
 import axios from "axios";
 
 const ReviewCard = ({props}) => {
+    const {setLoad} = useMovies();
     const { reviews, id, getMovie } = props;
     const defaultFormData = {
         "name": "",
-        "vote": null,
+        "vote": 1,
         "text": ""
     }
     const { url } = useMovies();
@@ -24,10 +25,12 @@ const ReviewCard = ({props}) => {
     }
 
     const sendReview = (e) => {
+        setLoad(true);
          e.preventDefault();
         axios.post(`${url}${id}/reviews`, formData)
             .then(response => console.log(response))
             .catch(error=> console.log(error))
+            .finally(setLoad(false))
 
         getMovie();
         setFormData(defaultFormData);

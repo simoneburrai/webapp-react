@@ -8,6 +8,7 @@ const Movies = () => {
     const { url, movies } = useMovies();
     const searchUrl = `${url}?search=`
     const [updatedMovies, setUpdatedMovies] = useState([]);
+    const {setLoad} = useMovies();
 
     const onSearch = (e) => {
         setSearch(e.target.value);
@@ -15,10 +16,12 @@ const Movies = () => {
 
     const onSendForm = (e) => {
         e.preventDefault();
+        setLoad(true)
         if (search) {
             axios.get(`${searchUrl}${search}`)
                 .then(response => setUpdatedMovies(response.data))
-                .catch(error => console.log(error));
+                .catch(error => console.log(error))
+                .finally(setLoad(false))
         } else {
             setUpdatedMovies(movies);
         }

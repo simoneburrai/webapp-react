@@ -32,7 +32,6 @@ const MovieProvider = ({ children }) => {
    
 
     return <MovieContext.Provider value={{ movies, url, getMovies, load, setLoad }}>
-        {load && <div>Caricamento in Corso</div>}
         {errorMessage && <div className="error-alert">{errorMessage}</div>}
         {movies && children}
     </MovieContext.Provider>

@@ -57,7 +57,16 @@ main {
     text-align: center;
 }
 
+/* Loader */
 
+main .loader {
+    background-color: goldenrod;
+    color: white;
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    text-transform: uppercase;
+}
 
 
 /* HOME PAGE  */

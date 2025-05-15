@@ -7,7 +7,7 @@ import ReviewCard from "../components/ReviewCard";
 
 
 const MovieDetail = () => {
-
+    const {load, setLoad} = useMovies()
     const [movie, setMovie] = useState(null);
     const [reviews, setReviews] = useState(null);
     const { url } = useMovies();
@@ -15,19 +15,21 @@ const MovieDetail = () => {
     const movieUrl = `${url}${id}`;
 
     function getMovie() {
+        setLoad(true)
         axios.get(movieUrl)
             .then(response => {
                 setMovie(response.data.movie);
                 setReviews(response.data.reviews);
 
             })
-            .catch(error => console.log(error));
+            .catch(error => console.log(error))
+            .finally(setLoad(false))
     }
 
     useEffect(getMovie, [])
 
 
-    return <div className="movie-page">
+    return !load && <div className="movie-page">
         {movie && <div className="movie-detail">
             <div className="image-container">
                 <img src={movie.image} alt={movie.title} />
